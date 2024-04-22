@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import React, { useState } from "react";
 // import { FaAlignCenter } from "react-icons/fa";
 import { toast } from "react-toastify";
@@ -7,8 +8,31 @@ const HomePage = () => {
   const profilePIcDefault =
     "https://static.vecteezy.com/system/resources/previews/002/318/271/non_2x/user-profile-icon-free-vector.jpg";
 
+  const [name,setName] = useState("");
+  const [email,setEmail] = useState("");
+  const [password,setPassword] = useState("");
+  const [gender,setGender] = useState("");
+  const [img,setImg] = useState("");
+  const [term,setTerm] = useState("");
+  
   const handleSubmit = (e) => {
     e.preventDefault();
+
+    if(name === ""){
+      toast.error("Name is required!");
+    }else if(email === ""){
+      toast.error("Email is required!");
+    }else if(password === "password"){
+      toast.error("Password is required!");
+    }else{
+      localStorage.setItem('name',name);
+      localStorage.setItem('email',email);
+      localStorage.setItem('password',password);
+      localStorage.setItem('gender',gender);
+      localStorage.setItem('img',img);
+      localStorage.setItem('term',term);
+      toast.success("User saved!");
+    }
   };
 
   return (
@@ -25,6 +49,8 @@ const HomePage = () => {
               <input
                 type="text"
                 className="form-control"
+                value={name}
+                onChange={(e)=> setName(e.target.value) }
                 id="exampleInputName"
                 aria-describedby="emailHelp"
               />
@@ -36,6 +62,8 @@ const HomePage = () => {
               <input
                 type="email"
                 className="form-control"
+                value={email}
+                onChange={(e)=> setEmail(e.target.value) }
                 id="exampleInputEmail1"
                 aria-describedby="emailHelp"
               />
@@ -47,6 +75,8 @@ const HomePage = () => {
               <input
                 type="password"
                 className="form-control"
+                value={password}
+                onChange={(e)=> setPassword(e.target.value) }
                 id="exampleInputPassword1"
               />
             </div>
@@ -59,6 +89,8 @@ const HomePage = () => {
                   type="radio"
                   name="Gender"
                   value="Male"
+                  defaultChecked={gender === "Male"}
+                  onChange={(e)=> setGender(e.target.value) }
                   id="flexRadioDefault1"
                 />
                 <label className="form-check-label" htmlFor="flexRadioDefault1">
@@ -71,6 +103,8 @@ const HomePage = () => {
                   type="radio"
                   name="Gender"
                   value="Female"
+                  defaultChecked={gender === "Female"}
+                  onChange={(e)=> setGender(e.target.value) }
                   id="flexRadioDefault2"
                 />
                 <label className="form-check-label" htmlFor="flexRadioDefault2">
@@ -83,6 +117,8 @@ const HomePage = () => {
                 className="form-check-input"
                 type="checkbox"
                 id="flexCheckDefault"
+                checked={term}
+                onChange={(e)=> setTerm(e.target.value) }
               />
               <label className="form-check-label" htmlFor="flexCheckDefault">
                 I Acept Terms And Conditions
